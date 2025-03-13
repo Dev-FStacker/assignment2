@@ -1,0 +1,51 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "News Articles";
+}
+
+<div class="container mt-4">
+    <h1 class="text-center mb-4">📰 Latest News</h1>
+
+    @if (Model.Articles != null && Model.Articles.Any())
+    {
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            @foreach (var article in Model.Articles)
+            {
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">@article.NewsTitle</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">@article.Headline</h6>
+                            <p class="card-text text-truncate" style="max-width: 100%; overflow: hidden;">
+                                @article.NewsContent
+                            </p>
+                            <p class="text-muted small">
+                                🗓️ @article.CreatedDate | 📰 <strong>@article.NewsSource</strong>
+                            </p>
+                            <div class="d-flex flex-wrap">
+                                @foreach (var tag in article.Tags)
+                                {
+                                    <span class="badge bg-primary me-1">#@tag.TagName</span>
+                                }
+                            </div>
+                        </div>
+                        <div class="card-footer text-end">
+                            <a href="/News/Details/@article.NewsArticleId" class="btn btn-outline-primary btn-sm">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info text-center mt-4">
+            No articles found.
+        </div>
+    }
+</div>
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+    <script src="js/signalr-news.js"></script>
+}

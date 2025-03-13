@@ -1,0 +1,27 @@
+﻿@page
+@model LoginModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="container d-flex justify-content-center align-items-start" style="min-height: 80vh; padding-top: 50px;">
+    <div class="card shadow-lg p-5" style="width: 420px;">
+        <h2 class="text-center mb-4">Login</h2>
+        <form method="post">
+            <div class="mb-4">
+                <label class="form-label fs-5">Email</label>
+                <input type="email" class="form-control form-control-lg" asp-for="Account.Email" required />
+            </div>
+            <div class="mb-4">
+                <label class="form-label fs-5">Password</label>
+                <input type="password" class="form-control form-control-lg" asp-for="Account.Password" required />
+            </div>
+            <button type="submit" class="btn btn-primary w-100 py-2 fs-5">Login</button>
+        </form>
+
+        @if (!string.IsNullOrEmpty(Model.Account.ErrorMessage))
+        {
+            <p class="text-danger text-center mt-3 fs-5">@Model.Account.ErrorMessage</p>
+        }
+    </div>
+</div>

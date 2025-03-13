@@ -1,0 +1,30 @@
+﻿@page "/News/Details/{id:int}"
+@model FUNewsManagement.Pages.NewsDetailsModel
+@{
+    ViewData["Title"] = Model.Article?.NewsTitle ?? "News Details";
+}
+<div class="container mt-4">
+    @if (Model.Article != null)
+    {
+        <h1 class="mb-3">@Model.Article.NewsTitle</h1>
+        <h5 class="text-muted">@Model.Article.Headline</h5>
+        <p><strong>Published:</strong> @Model.Article.CreatedDate</p>
+        <p><strong>Source:</strong> @Model.Article.NewsSource</p>
+
+        <p class="lead">@Model.Article.NewsContent</p>
+
+        <div>
+            <strong>Tags:</strong>
+            @foreach (var tag in Model.Article.Tags)
+            {
+                <span class="badge bg-primary me-1">#@tag.TagName</span>
+            }
+        </div>
+
+        <a href="/Index" class="btn btn-secondary mt-3">Back to News</a>
+    }
+    else
+    {
+        <div class="alert alert-danger">News article not found.</div>
+    }
+</div>

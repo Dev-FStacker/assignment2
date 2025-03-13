@@ -1,0 +1,15 @@
+E:\Class\PRN222\Assignment02\FUNewsManagementSystem\BLL\bin\Debug\net8.0\BLL.deps.json
+E:\Class\PRN222\Assignment02\FUNewsManagementSystem\BLL\bin\Debug\net8.0\BLL.dll
+E:\Class\PRN222\Assignment02\FUNewsManagementSystem\BLL\bin\Debug\net8.0\BLL.pdb
+E:\Class\PRN222\Assignment02\FUNewsManagementSystem\BLL\bin\Debug\net8.0\DAL.dll
+E:\Class\PRN222\Assignment02\FUNewsManagementSystem\BLL\bin\Debug\net8.0\DAL.pdb
+E:\Class\PRN222\Assignment02\FUNewsManagementSystem\BLL\obj\Debug\net8.0\BLL.csproj.AssemblyReference.cache
+E:\Class\PRN222\Assignment02\FUNewsManagementSystem\BLL\obj\Debug\net8.0\BLL.GeneratedMSBuildEditorConfig.editorconfig
+E:\Class\PRN222\Assignment02\FUNewsManagementSystem\BLL\obj\Debug\net8.0\BLL.AssemblyInfoInputs.cache
+E:\Class\PRN222\Assignment02\FUNewsManagementSystem\BLL\obj\Debug\net8.0\BLL.AssemblyInfo.cs
+E:\Class\PRN222\Assignment02\FUNewsManagementSystem\BLL\obj\Debug\net8.0\BLL.csproj.CoreCompileInputs.cache
+E:\Class\PRN222\Assignment02\FUNewsManagementSystem\BLL\obj\Debug\net8.0\BLL.csproj.Up2Date
+E:\Class\PRN222\Assignment02\FUNewsManagementSystem\BLL\obj\Debug\net8.0\BLL.dll
+E:\Class\PRN222\Assignment02\FUNewsManagementSystem\BLL\obj\Debug\net8.0\refint\BLL.dll
+E:\Class\PRN222\Assignment02\FUNewsManagementSystem\BLL\obj\Debug\net8.0\BLL.pdb
+E:\Class\PRN222\Assignment02\FUNewsManagementSystem\BLL\obj\Debug\net8.0\ref\BLL.dll

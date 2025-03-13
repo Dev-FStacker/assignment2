@@ -1,0 +1,14 @@
+E:\Class\PRN222\Assignment02\FUNewsManagementSystem\DAL\bin\Debug\net8.0\DAL.deps.json
+E:\Class\PRN222\Assignment02\FUNewsManagementSystem\DAL\bin\Debug\net8.0\DAL.runtimeconfig.json
+E:\Class\PRN222\Assignment02\FUNewsManagementSystem\DAL\bin\Debug\net8.0\DAL.dll
+E:\Class\PRN222\Assignment02\FUNewsManagementSystem\DAL\bin\Debug\net8.0\DAL.pdb
+E:\Class\PRN222\Assignment02\FUNewsManagementSystem\DAL\obj\Debug\net8.0\DAL.csproj.AssemblyReference.cache
+E:\Class\PRN222\Assignment02\FUNewsManagementSystem\DAL\obj\Debug\net8.0\DAL.GeneratedMSBuildEditorConfig.editorconfig
+E:\Class\PRN222\Assignment02\FUNewsManagementSystem\DAL\obj\Debug\net8.0\DAL.AssemblyInfoInputs.cache
+E:\Class\PRN222\Assignment02\FUNewsManagementSystem\DAL\obj\Debug\net8.0\DAL.AssemblyInfo.cs
+E:\Class\PRN222\Assignment02\FUNewsManagementSystem\DAL\obj\Debug\net8.0\DAL.csproj.CoreCompileInputs.cache
+E:\Class\PRN222\Assignment02\FUNewsManagementSystem\DAL\obj\Debug\net8.0\DAL.dll
+E:\Class\PRN222\Assignment02\FUNewsManagementSystem\DAL\obj\Debug\net8.0\refint\DAL.dll
+E:\Class\PRN222\Assignment02\FUNewsManagementSystem\DAL\obj\Debug\net8.0\DAL.pdb
+E:\Class\PRN222\Assignment02\FUNewsManagementSystem\DAL\obj\Debug\net8.0\DAL.genruntimeconfig.cache
+E:\Class\PRN222\Assignment02\FUNewsManagementSystem\DAL\obj\Debug\net8.0\ref\DAL.dll

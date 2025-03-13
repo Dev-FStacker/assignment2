@@ -1,0 +1,36 @@
+﻿@page
+@model FUNewsManagement.Pages.AdminModel
+@{
+    ViewData["Title"] = "Admin Panel";
+}
+
+<h2>Admin Panel - User List</h2>
+
+@if (Model.Accounts != null && Model.Accounts.Any())
+{
+    <table border="1" cellpadding="5" cellspacing="0">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Role</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model.Accounts)
+            {
+                <tr>
+                    <td>@user.AccountId</td>
+                    <td>@user.AccountName</td>
+                    <td>@user.AccountEmail</td>
+                    <td>@user.AccountType()</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No users found.</p>
+}

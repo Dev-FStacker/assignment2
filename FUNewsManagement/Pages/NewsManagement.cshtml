@@ -1,0 +1,228 @@
+﻿@page
+@model FUNewsManagement.Pages.NewsManagementModel
+
+<h2>News Management</h2>
+<button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#createNewsModal">
+    Create News
+</button>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Headline</th>
+            <th>Content</th>
+            <th>Tags</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var news in Model.NewsList)
+        {
+            <tr>
+                <td>@news.NewsArticleId</td>
+                <td>@news.NewsTitle</td>
+                <td>@news.Headline</td>
+                <td>@news.NewsContent</td>
+                <td>
+                    <div class="d-flex flex-wrap">
+                        @if (news.Tags.Any()){
+                            @foreach (var tag in news.Tags)
+                            {
+                                <label class="me-2"> @tag.TagName </label>
+                            }
+                        } else {
+                            <label class="me-2">N/A</label>
+                        }
+                        
+                    </div>
+                </td>
+                <td>
+                    <button class="btn btn-warning btn-edit"
+                            data-id="@news.NewsArticleId"
+                            data-title="@news.NewsTitle"
+                            data-headline="@news.Headline"
+                            data-content="@news.NewsContent"
+                            data-category="@news.CategoryId"
+                            data-tags="@string.Join(",", news.Tags.Select(t => t.TagId))"
+                            data-bs-toggle="modal"
+                            data-bs-target="#editNewsModal">
+                        Edit
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="modal fade" id="editNewsModal" tabindex="-1" aria-labelledby="editNewsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editNewsModalLabel">Edit News Article</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form method="post" asp-page-handler="Edit">
+                    <input type="hidden" id="newsId" name="NewsArticleId" />
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="newsTitle" class="form-label">Title</label>
+                                <input type="text" class="form-control" id="newsTitle" name="NewsTitle" required />
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="newsHeadline" class="form-label">Headline</label>
+                                <input type="text" class="form-control" id="newsHeadline" name="Headline" required />
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="newsContent" class="form-label">Content</label>
+                                <textarea class="form-control" id="newsContent" name="NewsContent" rows="5" required></textarea>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="mb-0">Tags</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div id="tagContainer">
+                                        @foreach (var tag in Model.AllTags)
+                                        {
+                                            <div class="form-check">
+                                                <input class="form-check-input tag-checkbox" type="checkbox" name="SelectedTags" value="@tag.TagId" id="tag_@tag.TagId">
+                                                <label class="form-check-label" for="tag_@tag.TagId">
+                                                    @tag.TagName
+                                                </label>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="mb-0">Category</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div id="categoryContainer">
+                                        @foreach (var category in Model.AllCategories)
+                                        {
+                                            <div class="form-check">
+                                                <input class="form-check-input category-radio" type="radio" name="CategoryId" value="@category.CategoryId" id="category_@category.CategoryId">
+                                                <label class="form-check-label" for="category_@category.CategoryId">
+                                                    @category.CategoryName
+                                                </label>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="createNewsModal" tabindex="-1" aria-labelledby="createNewsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createNewsModalLabel">Create News Article</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form method="post" asp-page-handler="Create">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="createNewsTitle" class="form-label">Title</label>
+                                <input type="text" class="form-control" id="createNewsTitle" name="NewsTitle" required />
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="createNewsHeadline" class="form-label">Headline</label>
+                                <input type="text" class="form-control" id="createNewsHeadline" name="Headline" required />
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="createNewsContent" class="form-label">Content</label>
+                                <textarea class="form-control" id="createNewsContent" name="NewsContent" rows="5" required></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="mb-0">Tags</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div id="createTagContainer">
+                                        @foreach (var tag in Model.AllTags)
+                                        {
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="SelectedTags" value="@tag.TagId" id="create_tag_@tag.TagId">
+                                                <label class="form-check-label" for="create_tag_@tag.TagId">
+                                                    @tag.TagName
+                                                </label>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="createNewsCategory" class="form-label">Category</label>
+                            <select class="form-control" id="createNewsCategory" name="SelectedCategory" required>
+                                <option value="">-- Select Category --</option>
+                                @foreach (var category in Model.AllCategories)
+                                {
+                                    <option value="@category.CategoryId">@category.CategoryName</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3">Create News</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+       document.addEventListener("DOMContentLoaded", function () {
+        var editButtons = document.querySelectorAll(".btn-edit");
+        editButtons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                document.getElementById("newsId").value = this.getAttribute("data-id");
+                document.getElementById("newsTitle").value = this.getAttribute("data-title");
+                document.getElementById("newsHeadline").value = this.getAttribute("data-headline");
+                document.getElementById("newsContent").value = this.getAttribute("data-content");
+
+                var selectedTagIds = this.getAttribute("data-tags").split(",");
+                document.querySelectorAll(".tag-checkbox").forEach(function (checkbox) {
+                    checkbox.checked = selectedTagIds.includes(checkbox.value);
+                });
+
+                var selectedCategoryId = this.getAttribute("data-category");
+                document.querySelectorAll(".category-radio").forEach(function (radio) {
+                    radio.checked = radio.value === selectedCategoryId;
+                });
+            });
+        });
+    });
+</script>
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+    <script src="js/signalr-news.js"></script>
+}

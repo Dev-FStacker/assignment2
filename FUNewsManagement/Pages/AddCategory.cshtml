@@ -1,0 +1,24 @@
+﻿@page
+@model FUNewsManagement.Pages.AddCategoryModel
+@{
+    ViewData["Title"] = "Add Category";
+}
+
+<div class="container mt-4">
+    <h3 class="mb-3">Add New Category</h3>
+
+    <form method="post">
+        <div class="mb-3">
+            <label class="form-label">Category Name</label>
+            <input asp-for="NewCategory.CategoryName" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Description</label>
+            <textarea asp-for="NewCategory.CategoryDesciption" class="form-control" required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-success">Save</button>
+        <a asp-page="Staff" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>

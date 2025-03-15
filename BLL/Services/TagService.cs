@@ -17,7 +17,7 @@ namespace BLL.Services
             _tagRepo = tagRepo;
         }
 
-        public Task<List<Tag>> GetAll() => _tagRepo.GetAll();
+        public Task<List<BusinessObject.Tag>> GetAll() => _tagRepo.GetAll();
         
     }
 }

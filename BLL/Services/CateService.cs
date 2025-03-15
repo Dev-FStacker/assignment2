@@ -32,9 +32,9 @@ namespace BLL.Services
             await _hubContext.Clients.All.SendAsync("ReceiveCategoryUpdate");
             return res;
         }
-        public Task<List<Category>> GetCategories() => _repo.GetCategories();
-        public Task<Category> GetCategoryById(short id) => _repo.GetCategoryById(id);
-        public async Task<bool> UpdateCategory(Category selectedCategory)
+        public Task<List<BusinessObject.Category>> GetCategories() => _repo.GetCategories();
+        public Task<BusinessObject.Category> GetCategoryById(short id) => _repo.GetCategoryById(id);
+        public async Task<bool> UpdateCategory(BusinessObject.Category selectedCategory)
         {
             var res = await _repo.UpdateCategory(selectedCategory);
             await _hubContext.Clients.All.SendAsync("ReceiveCategoryUpdate");

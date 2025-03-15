@@ -1,10 +1,15 @@
 ﻿@page
 @model FUNewsManagement.Pages.NewsManagementModel
-
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    var userRole = HttpContextAccessor.HttpContext?.Request.Cookies["Role"];
+}
 <h2>News Management</h2>
-<button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#createNewsModal">
-    Create News
-</button>
+@if (userRole == "Staff"){
+    <button type="button" class="btn btn-success mb-3" id="btnCreateNews">
+        Create News
+    </button>
+}
 <table class="table table-bordered">
     <thead>
         <tr>
@@ -13,7 +18,11 @@
             <th>Headline</th>
             <th>Content</th>
             <th>Tags</th>
-            <th>Actions</th>
+            <th>Status</th>
+            <th>Source</th>
+            @if (userRole == "Staff"){
+                <th>Actions</th>
+            }
         </tr>
     </thead>
     <tbody>
@@ -38,33 +47,58 @@
                     </div>
                 </td>
                 <td>
-                    <button class="btn btn-warning btn-edit"
-                            data-id="@news.NewsArticleId"
-                            data-title="@news.NewsTitle"
-                            data-headline="@news.Headline"
-                            data-content="@news.NewsContent"
-                            data-category="@news.CategoryId"
-                            data-tags="@string.Join(",", news.Tags.Select(t => t.TagId))"
-                            data-bs-toggle="modal"
-                            data-bs-target="#editNewsModal">
-                        Edit
-                    </button>
+                    @if (news.NewsStatus.HasValue)
+                    {
+                        @if (news.NewsStatus.Value)
+                        {
+                            <span class="text-success">Active</span>
+                        }
+                        else
+                        {
+                            <span class="text-danger">Inactive</span>
+                        }
+                    }
+                    else
+                    {
+                        <span class="text-muted">Unknown</span>
+                    }
                 </td>
+                <td>@news.NewsSource</td>
+                @if (userRole == "Staff"){
+                    <td>
+                        <button class="btn btn-warning btn-edit"
+                                data-id="@news.NewsArticleId"
+                                data-title="@news.NewsTitle"
+                                data-headline="@news.Headline"
+                                data-content="@news.NewsContent"
+                                data-category="@news.CategoryId"
+                                data-status="@(news.NewsStatus.HasValue ? news.NewsStatus.ToString().ToLower() : "")"
+                                data-source="@news.NewsSource"
+                                data-tags="@string.Join(",", news.Tags.Select(t => t.TagId))">
+                            Edit
+                        </button>
+                        <form method="post" asp-page-handler="Delete" asp-route-id="@news.NewsArticleId"
+                              onsubmit="return confirm('Are you sure you want to delete this news article?');">
+                            <button type="submit" class="btn btn-danger btn-md">Delete</button>
+                        </form>
+                    </td>
+                }
             </tr>
         }
     </tbody>
 </table>
 
-<div class="modal fade" id="editNewsModal" tabindex="-1" aria-labelledby="editNewsModalLabel" aria-hidden="true">
+
+<div class="modal fade" id="newsModal" tabindex="-1" aria-labelledby="newsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editNewsModalLabel">Edit News Article</h5>
+                <h5 class="modal-title" id="newsModalLabel">Create News Article</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
             <div class="modal-body">
-                <form method="post" asp-page-handler="Edit">
+                <form method="post" id="newsForm">
                     <input type="hidden" id="newsId" name="NewsArticleId" />
 
                     <div class="row">
@@ -82,6 +116,21 @@
                             <div class="mb-3">
                                 <label for="newsContent" class="form-label">Content</label>
                                 <textarea class="form-control" id="newsContent" name="NewsContent" rows="5" required></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="newsStatus" class="form-label">Status</label>
+                                <select class="form-control" id="newsStatus" name="NewsStatus">
+                                    <option value="">Unknown</option>
+                                    <option value="true">Active</option>
+                                    <option value="false">Inactive</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="newsSource" class="form-label">Source</label>
+                                <input type="text" class="form-control" id="newsSource" name="NewsSource" required />
                             </div>
                         </div>
 
@@ -105,85 +154,10 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-md-4">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5 class="mb-0">Category</h5>
-                                </div>
-                                <div class="card-body">
-                                    <div id="categoryContainer">
-                                        @foreach (var category in Model.AllCategories)
-                                        {
-                                            <div class="form-check">
-                                                <input class="form-check-input category-radio" type="radio" name="CategoryId" value="@category.CategoryId" id="category_@category.CategoryId">
-                                                <label class="form-check-label" for="category_@category.CategoryId">
-                                                    @category.CategoryName
-                                                </label>
-                                            </div>
-                                        }
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<div class="modal fade" id="createNewsModal" tabindex="-1" aria-labelledby="createNewsModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="createNewsModalLabel">Create News Article</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-
-            <div class="modal-body">
-                <form method="post" asp-page-handler="Create">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="mb-3">
-                                <label for="createNewsTitle" class="form-label">Title</label>
-                                <input type="text" class="form-control" id="createNewsTitle" name="NewsTitle" required />
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="createNewsHeadline" class="form-label">Headline</label>
-                                <input type="text" class="form-control" id="createNewsHeadline" name="Headline" required />
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="createNewsContent" class="form-label">Content</label>
-                                <textarea class="form-control" id="createNewsContent" name="NewsContent" rows="5" required></textarea>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5 class="mb-0">Tags</h5>
-                                </div>
-                                <div class="card-body">
-                                    <div id="createTagContainer">
-                                        @foreach (var tag in Model.AllTags)
-                                        {
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="SelectedTags" value="@tag.TagId" id="create_tag_@tag.TagId">
-                                                <label class="form-check-label" for="create_tag_@tag.TagId">
-                                                    @tag.TagName
-                                                </label>
-                                            </div>
-                                        }
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <label for="createNewsCategory" class="form-label">Category</label>
-                            <select class="form-control" id="createNewsCategory" name="SelectedCategory" required>
+                            <label for="newsCategory" class="form-label">Category</label>
+                            <select class="form-control" id="newsCategory" name="SelectedCategory" required>
                                 <option value="">-- Select Category --</option>
                                 @foreach (var category in Model.AllCategories)
                                 {
@@ -192,36 +166,73 @@
                             </select>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary mt-3">Create News</button>
+                    <button type="submit" id="newsSubmitButton" class="btn btn-primary mt-3">Create News</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
 
+
 <script>
-       document.addEventListener("DOMContentLoaded", function () {
-        var editButtons = document.querySelectorAll(".btn-edit");
-        editButtons.forEach(function (button) {
+    document.addEventListener("DOMContentLoaded", function () {
+        var newsModal = new bootstrap.Modal(document.getElementById("newsModal"));
+
+        function openNewsModal(isEdit, data = {}) {
+            document.getElementById("newsModalLabel").textContent = isEdit ? "Edit News Article" : "Create News Article";
+            document.getElementById("newsSubmitButton").textContent = isEdit ? "Save Changes" : "Create News";
+              let statusValue = data.status;
+    if (statusValue === "true") {
+        statusValue = "true";
+    } else if (statusValue === "false") {
+        statusValue = "false";
+    } else {
+        statusValue = ""; // Handle null case
+    }
+    document.getElementById("newsStatus").value = statusValue;
+            document.getElementById("newsSource").value = isEdit ? data.source || "" : "";
+            document.getElementById("newsId").value = isEdit ? data.id || "" : "";
+            document.getElementById("newsTitle").value = isEdit ? data.title || "" : "";
+            document.getElementById("newsHeadline").value = isEdit ? data.headline || "" : "";
+            document.getElementById("newsContent").value = isEdit ? data.content || "" : "";
+
+            var selectedTagIds = isEdit ? (data.tags || "").split(",") : [];
+            document.querySelectorAll(".tag-checkbox").forEach(function (checkbox) {
+                checkbox.checked = selectedTagIds.includes(checkbox.value);
+            });
+
+            document.getElementById("newsCategory").value = isEdit ? data.category || "" : "";
+
+            document.getElementById("newsForm").action = isEdit
+                ? "/NewsManagement?handler=Edit"
+                : "/NewsManagement?handler=Create";
+
+            newsModal.show();
+        }
+
+        // Open modal for creating a news article
+        document.getElementById("btnCreateNews").addEventListener("click", function () {
+            openNewsModal(false);
+        });
+
+        // Open modal for editing an existing news article
+        document.querySelectorAll(".btn-edit").forEach(function (button) {
             button.addEventListener("click", function () {
-                document.getElementById("newsId").value = this.getAttribute("data-id");
-                document.getElementById("newsTitle").value = this.getAttribute("data-title");
-                document.getElementById("newsHeadline").value = this.getAttribute("data-headline");
-                document.getElementById("newsContent").value = this.getAttribute("data-content");
-
-                var selectedTagIds = this.getAttribute("data-tags").split(",");
-                document.querySelectorAll(".tag-checkbox").forEach(function (checkbox) {
-                    checkbox.checked = selectedTagIds.includes(checkbox.value);
-                });
-
-                var selectedCategoryId = this.getAttribute("data-category");
-                document.querySelectorAll(".category-radio").forEach(function (radio) {
-                    radio.checked = radio.value === selectedCategoryId;
+                openNewsModal(true, {
+                    id: this.getAttribute("data-id"),
+                    title: this.getAttribute("data-title"),
+                    headline: this.getAttribute("data-headline"),
+                    content: this.getAttribute("data-content"),
+                    tags: this.getAttribute("data-tags"),
+                    category: this.getAttribute("data-category"),
+                    status: this.getAttribute("data-status"),
+                    source: this.getAttribute("data-source")
                 });
             });
         });
     });
 </script>
+
 @section Scripts {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
     <script src="js/signalr-news.js"></script>

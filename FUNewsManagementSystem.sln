@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLL\BLL.csproj", "{1
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FUNewsManagement", "FUNewsManagement\FUNewsManagement.csproj", "{DB75AF53-932C-45F9-A332-8E4FCDDF0027}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessObject", "BusinessObject\BusinessObject.csproj", "{FD309D86-D354-4634-A2B0-2408BD800D49}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{DB75AF53-932C-45F9-A332-8E4FCDDF0027}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB75AF53-932C-45F9-A332-8E4FCDDF0027}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB75AF53-932C-45F9-A332-8E4FCDDF0027}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD309D86-D354-4634-A2B0-2408BD800D49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD309D86-D354-4634-A2B0-2408BD800D49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD309D86-D354-4634-A2B0-2408BD800D49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD309D86-D354-4634-A2B0-2408BD800D49}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

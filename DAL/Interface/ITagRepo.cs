@@ -9,6 +9,6 @@ namespace DAL.Interface
 {
     public interface ITagRepo
     {
-        Task<List<Tag>> GetAll();
+        Task<List<BusinessObject.Tag>> GetAll();
     }
 }

@@ -1730,6 +1730,16 @@
             "rid": "win"
           }
         }
+      },
+      "BusinessObject/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/BusinessObject.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BusinessObject.dll": {}
+        }
       }
     }
   },
@@ -5016,10 +5026,16 @@
         "system.windows.extensions.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "BusinessObject/1.0.0": {
+      "type": "project",
+      "path": "../BusinessObject/BusinessObject.csproj",
+      "msbuildProject": "../BusinessObject/BusinessObject.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net8.0": [
+      "BusinessObject >= 1.0.0",
       "Microsoft.EntityFrameworkCore >= 9.0.2",
       "Microsoft.EntityFrameworkCore.SqlServer >= 9.0.2",
       "Microsoft.EntityFrameworkCore.Tools >= 9.0.2",
@@ -5058,7 +5074,11 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "E:\\Class\\PRN222\\Assignment02\\FUNewsManagementSystem\\BusinessObject\\BusinessObject.csproj": {
+              "projectPath": "E:\\Class\\PRN222\\Assignment02\\FUNewsManagementSystem\\BusinessObject\\BusinessObject.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

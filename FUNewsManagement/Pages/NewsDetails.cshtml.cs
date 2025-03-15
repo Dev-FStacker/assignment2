@@ -1,5 +1,4 @@
 using BLL.Interface;
-using DAL.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +8,7 @@ namespace FUNewsManagement.Pages
     public class NewsDetailsModel : PageModel
     {
         private readonly INewsArticleService _newsArticleService;
-        public NewsArticle? Article { get; set; }
+        public BusinessObject.NewsArticle? Article { get; set; }
         public NewsDetailsModel(INewsArticleService newsArticleService)
         {
             _newsArticleService = newsArticleService;

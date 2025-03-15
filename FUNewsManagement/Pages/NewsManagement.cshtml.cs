@@ -1,5 +1,4 @@
 using BLL.Interface;
-using DAL.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -16,9 +15,12 @@ namespace FUNewsManagement.Pages
             _tagService = tagService;
             _cateService = cateService;
         }
-        public List<NewsArticle> NewsList { get; set; } = new();
-        public List<Tag> AllTags { get; set; } = new();
-        public List<Category> AllCategories { get; set; } = new();
+        public List<BusinessObject.NewsArticle> NewsList { get; set; } = new();
+        public List<BusinessObject.Tag> AllTags { get; set; } = new();
+        [BindProperty]
+        public BusinessObject.NewsArticle NewsArticle { get; set; } = new();
+
+        public List<BusinessObject.Category> AllCategories { get; set; } = new();
         public async Task<IActionResult> OnGet()
         {
             NewsList = await _newsArticleService.GetAllNewsArticles();
@@ -26,23 +28,23 @@ namespace FUNewsManagement.Pages
             AllCategories = await _cateService.GetCategories();
             return Page();
         }
-        public async Task<IActionResult> OnPostCreateAsync(string NewsTitle, string Headline, string NewsContent, int SelectedCategory, List<int> SelectedTags)
+        public async Task<IActionResult> OnPostCreateAsync(string NewsTitle, string Headline, string NewsContent, int SelectedCategory, List<int> SelectedTags, bool NewsStatus, string NewsSource)
         {
             if (string.IsNullOrWhiteSpace(NewsTitle) || string.IsNullOrWhiteSpace(Headline) || string.IsNullOrWhiteSpace(NewsContent) || SelectedCategory == 0)
             {
                 return BadRequest("Invalid data.");
             }
 
-            var newsArticle = new NewsArticle
+            var newsArticle = new BusinessObject.NewsArticle
             {
                 NewsTitle = NewsTitle,
                 Headline = Headline,
                 NewsContent = NewsContent,
                 CreatedById = short.Parse(Request.Cookies["UserId"]),
                 CreatedDate = DateTime.Now,
-                NewsSource = "N/A",
-                CategoryId = short.Parse(SelectedCategory.ToString()),
-                NewsStatus = true,
+                NewsSource = NewsSource,
+                CategoryId = (short)SelectedCategory,
+                NewsStatus = NewsStatus,
                 UpdatedById = short.Parse(Request.Cookies["UserId"]),
                 ModifiedDate = DateTime.Now,
             };
@@ -55,5 +57,54 @@ namespace FUNewsManagement.Pages
 
             return StatusCode(500, "Failed to create news.");
         }
+        public async Task<IActionResult> OnPostEditAsync(int NewsArticleId, string NewsTitle, string Headline, string NewsContent, int SelectedCategory, List<int> SelectedTags, bool NewsStatus, string NewsSource)
+        {
+            if (string.IsNullOrWhiteSpace(NewsTitle) || string.IsNullOrWhiteSpace(Headline) || string.IsNullOrWhiteSpace(NewsContent) || SelectedCategory == 0)
+            {
+                return BadRequest("Invalid data.");
+            }
+
+            var existingNewsArticle = await _newsArticleService.GetNewsArticle(NewsArticleId.ToString());
+            if (existingNewsArticle == null)
+            {
+                return NotFound("News article not found.");
+            }
+
+            // Update fields
+            existingNewsArticle.NewsTitle = NewsTitle;
+            existingNewsArticle.Headline = Headline;
+            existingNewsArticle.NewsContent = NewsContent;
+            existingNewsArticle.CategoryId = (short)SelectedCategory;
+            existingNewsArticle.NewsStatus = NewsStatus; // Update NewsStatus
+            existingNewsArticle.NewsSource = NewsSource; // Update NewsSource
+            existingNewsArticle.UpdatedById = short.Parse(Request.Cookies["UserId"]);
+            existingNewsArticle.ModifiedDate = DateTime.Now;
+
+            bool result = await _newsArticleService.UpdateNewsArticle(existingNewsArticle, SelectedTags ?? new List<int>());
+
+            if (result)
+            {
+                return RedirectToPage("/NewsManagement");
+            }
+
+            return StatusCode(500, "Failed to update news.");
+        }
+
+        public async Task<IActionResult> OnPostDelete(string id)
+        {
+            var isDeleted = await _newsArticleService.DeleteNewsArticle(id); // Await the async method
+
+            if (isDeleted)
+            {
+                TempData["SuccessMessage"] = "News article deleted successfully.";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Failed to delete news article.";
+            }
+
+            return RedirectToPage("/NewsManagement");
+        }
+
     }
 }

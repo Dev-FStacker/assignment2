@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using BLL.Interface;
-using DAL.Models;
+using BusinessObject;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -16,7 +16,7 @@ namespace FUNewsManagement.Pages
             _cateService = cateService;
         }
 
-        public List<Category> Categories { get; set; } = new List<Category>();
+        public List<BusinessObject.Category> Categories { get; set; } = new List<Category>();
 
         [BindProperty]
         public Category NewCategory { get; set; } = new Category();
@@ -26,22 +26,28 @@ namespace FUNewsManagement.Pages
             Categories = await _cateService.GetCategories();
         }
 
-        // ?? Handle Add & Edit Category
         public async Task<IActionResult> OnPostSaveAsync()
         {
-            if (NewCategory.CategoryId == 0) // Add new category
+            try
             {
-                await _cateService.AddCategory(NewCategory.CategoryName, NewCategory.CategoryDesciption);
+                if (NewCategory.CategoryId == 0)
+                {
+                    await _cateService.AddCategory(NewCategory.CategoryName, NewCategory.CategoryDesciption);
+                }
+                else
+                {
+                    await _cateService.UpdateCategory(NewCategory);
+                }
             }
-            else // Edit existing category
+            catch (Exception ex)
             {
-                await _cateService.UpdateCategory(NewCategory);
+                TempData["ErrorMessage"] = $"Error: {ex.Message}";
+                return Page();
             }
 
             return RedirectToPage();
         }
 
-        // ?? Handle Delete Category
         public async Task<IActionResult> OnPostDeleteAsync(short id)
         {
             try

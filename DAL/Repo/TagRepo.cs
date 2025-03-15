@@ -17,17 +17,24 @@ namespace DAL.Repo
             _context = context;
         }
 
-        public async Task<List<Tag>> GetAll()
+        public async Task<List<BusinessObject.Tag>> GetAll()
         {
             try
             {
-                var list = await _context.Tags.ToListAsync();
+                var list = await _context.Tags
+                    .Select(t => new BusinessObject.Tag
+                    {
+                        TagId = t.TagId,
+                        TagName = t.TagName,
+                        Note = t.Note
+                    })
+                    .ToListAsync();
+
                 return list;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                throw new Exception($"Error while retrieving tags: {ex.Message}");
             }
         }
     }

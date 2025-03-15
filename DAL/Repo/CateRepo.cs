@@ -1,11 +1,12 @@
 ﻿using DAL.Interface;
-using DAL.Models;
+using BusinessObject;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DAL.Models;
 
 namespace DAL.Repo
 {
@@ -16,16 +17,14 @@ namespace DAL.Repo
         {
             _context = context;
         }
-
         public async Task<bool> AddCategory(string name, string desciption)
         {
             try
             {
-                var newCate = new Category
+                var newCate = new Models.Category
                 {
                     CategoryName = name,
                     CategoryDesciption = desciption,
-                    ParentCategoryId = GenerateCateId(),
                     IsActive = true,
                 };
 
@@ -38,11 +37,6 @@ namespace DAL.Repo
             {
                 throw new Exception(ex.Message);
             }
-        }
-        private short GenerateCateId()
-        {
-            var Id = _context.Categories.OrderByDescending(c => c.CategoryId).Select(c => c.CategoryId).FirstOrDefault() + 1;
-            return (short)Id;
         }
         public async Task<bool> DeleteCategory(short id)
         {
@@ -69,11 +63,25 @@ namespace DAL.Repo
             }
         }
 
-        public async Task<List<Category>> GetCategories()
+        public async Task<List<BusinessObject.Category>> GetCategories()
         {
             try
             {
-                var list = await _context.Categories.ToListAsync();
+                var categories = await _context.Categories.ToListAsync();
+
+                var list = new List<BusinessObject.Category>();
+
+                foreach (var category in categories)
+                {
+                    BusinessObject.Category cate = new BusinessObject.Category();
+                    cate.CategoryId = category.CategoryId;
+                    cate.CategoryDesciption = category.CategoryDesciption;
+                    cate.CategoryName = category.CategoryName;
+                    cate.ParentCategoryId = category.ParentCategoryId;
+                    cate.IsActive = category.IsActive;
+                    list.Add(cate);
+                }
+
                 return list;
             }
             catch (Exception ex)
@@ -82,12 +90,24 @@ namespace DAL.Repo
                 throw new Exception(ex.Message);
             }
         }
-
-        public async Task<Category> GetCategoryById(short id)
+        public async Task<BusinessObject.Category> GetCategoryById(short id)
         {
             try
             {
-                return await _context.Categories.FirstOrDefaultAsync(c => c.CategoryId.Equals(id));
+                var category = await _context.Categories.FirstOrDefaultAsync(c => c.CategoryId.Equals(id));
+                if (category == null)
+                {
+                    return null;
+                }
+                var cate = new BusinessObject.Category
+                {
+                    CategoryId = category.CategoryId,
+                    CategoryDesciption = category.CategoryDesciption,
+                    CategoryName = category.CategoryName,
+                    ParentCategoryId = category.ParentCategoryId,
+                    IsActive = category.IsActive,
+                };
+                return cate;
             }
             catch (Exception ex)
             {
@@ -96,7 +116,7 @@ namespace DAL.Repo
             }
         }
 
-        public async Task<bool> UpdateCategory(Category selectedCategory)
+        public async Task<bool> UpdateCategory(BusinessObject.Category selectedCategory)
         {
             try
             {

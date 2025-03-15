@@ -39,16 +39,16 @@
                         }
                         else
                         {
-                            @if (userRole == "Staff")
+                            @if (userRole == "Staff" || userRole == "Lecturer")
                             {
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-page="/NewsManagement">Manage News</a>
                                 </li>
+                            } else if (userRole == "Admin"){
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-page="/TagManagement">Manage Tags</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/NewsStatistics">Stats News</a>
                                 </li>
                             }
-
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-page="@userRole">@userRole</a>
                             </li>

@@ -1,5 +1,4 @@
-﻿using DAL.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +8,6 @@ namespace BLL.Interface
 {
     public interface ITagService
     {
-        Task<List<Tag>> GetAll();
+        Task<List<BusinessObject.Tag>> GetAll();
     }
 }

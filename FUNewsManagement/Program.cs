@@ -27,6 +27,8 @@ namespace FUNewsManagement
             builder.Services.AddScoped<ICateService, CateService>();
             builder.Services.AddScoped<ITagRepo, TagRepo>();
             builder.Services.AddScoped<ITagService, TagService>();
+            builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+            builder.Services.AddScoped<IAccountService, AccountService>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

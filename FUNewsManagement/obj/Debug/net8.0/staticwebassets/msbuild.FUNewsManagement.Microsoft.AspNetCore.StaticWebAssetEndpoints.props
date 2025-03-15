@@ -28,13 +28,13 @@
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\FUNewsManagement.016kvco1op.bundle.scp.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"016kvco1op"},{"Name":"integrity","Value":"sha256-hEosbKuJpOstb2vmaHQW2\u002ByvcivPLf4Wx1cmLNUSKfw="},{"Name":"label","Value":"_content/FUNewsManagement/FUNewsManagement.bundle.scp.css"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1134"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022hEosbKuJpOstb2vmaHQW2\u002ByvcivPLf4Wx1cmLNUSKfw=\u0022"},{"Name":"Last-Modified","Value":"Wed, 05 Mar 2025 03:21:33 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1134"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022hEosbKuJpOstb2vmaHQW2\u002ByvcivPLf4Wx1cmLNUSKfw=\u0022"},{"Name":"Last-Modified","Value":"Sat, 15 Mar 2025 00:31:04 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/FUNewsManagement/FUNewsManagement.bundle.scp.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\FUNewsManagement.016kvco1op.bundle.scp.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-hEosbKuJpOstb2vmaHQW2\u002ByvcivPLf4Wx1cmLNUSKfw="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1134"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022hEosbKuJpOstb2vmaHQW2\u002ByvcivPLf4Wx1cmLNUSKfw=\u0022"},{"Name":"Last-Modified","Value":"Wed, 05 Mar 2025 03:21:33 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1134"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022hEosbKuJpOstb2vmaHQW2\u002ByvcivPLf4Wx1cmLNUSKfw=\u0022"},{"Name":"Last-Modified","Value":"Sat, 15 Mar 2025 00:31:04 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/FUNewsManagement/js/signalr-category.c9pww88ym7.js">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\signalr-category.js'))</AssetFile>

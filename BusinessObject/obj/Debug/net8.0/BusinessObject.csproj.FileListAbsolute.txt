@@ -1,0 +1,12 @@
+E:\Class\PRN222\Assignment02\FUNewsManagementSystem\BusinessObject\bin\Debug\net8.0\BusinessObject.deps.json
+E:\Class\PRN222\Assignment02\FUNewsManagementSystem\BusinessObject\bin\Debug\net8.0\BusinessObject.dll
+E:\Class\PRN222\Assignment02\FUNewsManagementSystem\BusinessObject\bin\Debug\net8.0\BusinessObject.pdb
+E:\Class\PRN222\Assignment02\FUNewsManagementSystem\BusinessObject\obj\Debug\net8.0\BusinessObject.GeneratedMSBuildEditorConfig.editorconfig
+E:\Class\PRN222\Assignment02\FUNewsManagementSystem\BusinessObject\obj\Debug\net8.0\BusinessObject.AssemblyInfoInputs.cache
+E:\Class\PRN222\Assignment02\FUNewsManagementSystem\BusinessObject\obj\Debug\net8.0\BusinessObject.AssemblyInfo.cs
+E:\Class\PRN222\Assignment02\FUNewsManagementSystem\BusinessObject\obj\Debug\net8.0\BusinessObject.csproj.CoreCompileInputs.cache
+E:\Class\PRN222\Assignment02\FUNewsManagementSystem\BusinessObject\obj\Debug\net8.0\BusinessObject.sourcelink.json
+E:\Class\PRN222\Assignment02\FUNewsManagementSystem\BusinessObject\obj\Debug\net8.0\BusinessObject.dll
+E:\Class\PRN222\Assignment02\FUNewsManagementSystem\BusinessObject\obj\Debug\net8.0\refint\BusinessObject.dll
+E:\Class\PRN222\Assignment02\FUNewsManagementSystem\BusinessObject\obj\Debug\net8.0\BusinessObject.pdb
+E:\Class\PRN222\Assignment02\FUNewsManagementSystem\BusinessObject\obj\Debug\net8.0\ref\BusinessObject.dll
